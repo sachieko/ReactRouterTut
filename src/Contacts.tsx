@@ -1,10 +1,7 @@
 import localforage, { key } from "localforage";
 import { matchSorter } from "match-sorter";
+import { Icontact } from "./interfaces";
 
-export interface Icontact {
-  id: string;
-  createdAt: number;
-}
 
 export async function getContacts(query: string) {
   try {
