@@ -1,3 +1,5 @@
+import { Params } from "react-router-dom";
+
 export interface Icontact {
   id: string;
   createdAt: number;
@@ -11,4 +13,12 @@ export interface Icontact {
 
 export interface IrootLoader {
   contacts: Icontact[];
+};
+
+export interface IgetContactParams {
+  params: Params<string>;
+};
+
+export interface IcontactLoader {
+  contact: Icontact;
 };

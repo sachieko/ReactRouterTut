@@ -1,17 +1,14 @@
-import { Form } from "react-router-dom";
-import { Icontact } from "../interfaces";
+import { Form, useLoaderData } from "react-router-dom";
+import { getContact } from "../contactHelpers";
+import { Icontact, IcontactLoader, IgetContactParams } from "../interfaces";
+
+export async function loader({ params }: IgetContactParams) {
+  const contact = await getContact(params.contactId as string);
+  return { contact };
+};
 
 export default function Contact() {
-  const contact: Icontact = {
-    id: '4',
-    createdAt: Date.now(),
-    first: "Your",
-    last: "Name",
-    avatar: "https://placekitten.com/g/200/200",
-    twitter: "your_handle",
-    notes: "Some notes",
-    favorite: true,
-  };
+  const { contact } = useLoaderData() as IcontactLoader;
 
   return (
     <div id="contact">
