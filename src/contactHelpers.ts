@@ -5,9 +5,7 @@ import { Icontact } from "./interfaces";
 export async function getContacts(query?: string) {
   try {
     await fakeNetwork(`getContacts:${query}`);
-    const contactsJson: string | null = await localforage.getItem("contacts");
-    let contacts: Icontact[] = typeof contactsJson === 'string' ? JSON.parse(contactsJson) : [];
-    if (!contacts) contacts = [];
+    let contacts= await localforage.getItem("contacts") as Icontact[];
     if (query) {
       contacts = matchSorter(contacts, query, { keys: ["first", "last"] });
     }
@@ -17,12 +15,7 @@ export async function getContacts(query?: string) {
     return [];
   }
 }
-// first: string;
-//   last: string;
-//   avatar: string;
-//   twitter: string;
-//   notes: string;
-//   favorite: boolean;
+
 export async function createContact() {
   await fakeNetwork('');
   const id = Math.random().toString(36).substring(2, 9);
@@ -36,7 +29,7 @@ export async function createContact() {
     notes: "Some notes",
     favorite: true, 
   };
-  const contacts = await getContacts('');
+  const contacts = await getContacts();
   contacts.unshift(contact);
   await set(contacts);
   return contact;
@@ -45,8 +38,7 @@ export async function createContact() {
 export async function getContact(id: string) {
   try {
     await fakeNetwork(`contact:${id}`);
-    const contactsJson: string | null = await localforage.getItem("contacts");
-    const contacts: Icontact[] = typeof contactsJson === 'string' ? JSON.parse(contactsJson) : [];
+    const contacts= await localforage.getItem("contacts") as Icontact[];
     const contact = contacts.find(contact => contact.id === id);
     return contact ?? null;
   } catch (error) {
@@ -58,8 +50,7 @@ export async function getContact(id: string) {
 export async function updateContact(id: number, updates: any) {
   try {
     await fakeNetwork('');
-    const contactsJson: string | null = await localforage.getItem("contacts");
-    const contacts: Icontact[] = typeof contactsJson === 'string' ? JSON.parse(contactsJson) : [];
+    const contacts= await localforage.getItem("contacts") as Icontact[];
     let contact = contacts.find(contact => contact.id === id.toString());
     if (!contact) throw new Error("No contact found for " + id.toString());
     Object.assign(contact, updates);
@@ -73,8 +64,7 @@ export async function updateContact(id: number, updates: any) {
 
 export async function deleteContact(id: number) {
   try {
-    const contactsJson: string | null = await localforage.getItem("contacts");
-    const contacts: Icontact[] = typeof contactsJson === 'string' ? JSON.parse(contactsJson) : [];
+    const contacts= await localforage.getItem("contacts") as Icontact[];
     const index = contacts.findIndex(contact => contact.id === id.toString());
     if (index > -1) {
       contacts.splice(index, 1);

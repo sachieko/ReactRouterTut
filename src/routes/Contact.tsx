@@ -1,8 +1,10 @@
 import { Form } from "react-router-dom";
-import { IhtmlContact } from "../interfaces";
+import { Icontact } from "../interfaces";
 
 export default function Contact() {
-  const contact: IhtmlContact = {
+  const contact: Icontact = {
+    id: '4',
+    createdAt: Date.now(),
     first: "Your",
     last: "Name",
     avatar: "https://placekitten.com/g/200/200",
@@ -71,7 +73,7 @@ export default function Contact() {
 }
 
 interface IFavorite {
-  contact: IhtmlContact;
+  contact: Icontact;
 }
 
 function Favorite({ contact }: IFavorite) {
