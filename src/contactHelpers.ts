@@ -2,7 +2,6 @@ import localforage, { key } from "localforage";
 import { matchSorter } from "match-sorter";
 import { Icontact } from "./interfaces";
 
-
 export async function getContacts(query?: string) {
   try {
     await fakeNetwork(`getContacts:${query}`);
@@ -18,11 +17,25 @@ export async function getContacts(query?: string) {
     return [];
   }
 }
-
+// first: string;
+//   last: string;
+//   avatar: string;
+//   twitter: string;
+//   notes: string;
+//   favorite: boolean;
 export async function createContact() {
   await fakeNetwork('');
   const id = Math.random().toString(36).substring(2, 9);
-  const contact: Icontact = { id, createdAt: Date.now() };
+  const contact: Icontact = { 
+    id,
+    createdAt: Date.now(),
+    first: 'Chelsea',
+    last: 'Sachieko',
+    avatar: "https://placekitten.com/g/200/200",
+    twitter: "your_handle",
+    notes: "Some notes",
+    favorite: true, 
+  };
   const contacts = await getContacts('');
   contacts.unshift(contact);
   await set(contacts);
