@@ -3,7 +3,7 @@ import { matchSorter } from "match-sorter";
 import { Icontact } from "./interfaces";
 
 
-export async function getContacts(query: string) {
+export async function getContacts(query?: string) {
   try {
     await fakeNetwork(`getContacts:${query}`);
     const contactsJson: string | null = await localforage.getItem("contacts");
