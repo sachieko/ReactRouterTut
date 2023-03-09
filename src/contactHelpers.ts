@@ -22,8 +22,8 @@ export async function createContact() {
   const contact: Icontact = { 
     id,
     createdAt: Date.now(),
-    first: 'Chelsea',
-    last: 'Sachieko',
+    first: 'No',
+    last: 'Name',
     avatar: "https://placekitten.com/g/200/200",
     twitter: "your_handle",
     notes: "Some notes",
