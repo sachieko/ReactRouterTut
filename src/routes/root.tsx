@@ -7,6 +7,7 @@ import {
   Form,
   redirect,
   useNavigation,
+  useSubmit,
  } from 'react-router-dom';
 import { getContacts, createContact } from '../contactHelpers';
 import { Icontact, IrootLoader, IsearchRequest } from '../interfaces';
@@ -26,6 +27,7 @@ export async function loader({ request }: IsearchRequest) {
 export default function Root() {
   const { contacts, query } = useLoaderData() as IrootLoader;
   const navigation = useNavigation(); 
+  const submit = useSubmit();
 
   useEffect(() => {
     (document.getElementById('q') as HTMLInputElement).value = query as string;
@@ -44,6 +46,9 @@ export default function Root() {
               type="search"
               name="q"
               defaultValue={query}
+              onChange={(event) => {
+                submit(event.currentTarget.form);
+              }}
             />
             <div
               id="search-spinner"
