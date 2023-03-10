@@ -51,7 +51,10 @@ export default function Root() {
               name="q"
               defaultValue={query}
               onChange={(event) => {
-                submit(event.currentTarget.form);
+                const isFirstSearch = query == null;
+                submit(event.currentTarget.form, {
+                  replace: !isFirstSearch,
+                });
               }}
             />
             <div
