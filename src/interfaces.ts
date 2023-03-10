@@ -13,6 +13,7 @@ export interface Icontact {
 
 export interface IrootLoader {
   contacts: Icontact[];
+  query: string | undefined;
 };
 
 export interface IgetContactParams {
@@ -31,3 +32,7 @@ export interface IdeleteParams {
 export interface IcontactLoader {
   contact: Icontact;
 };
+
+export interface IsearchRequest {
+  request: Request;
+}

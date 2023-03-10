@@ -8,20 +8,22 @@ import {
   useNavigation,
  } from 'react-router-dom';
 import { getContacts, createContact } from '../contactHelpers';
-import { Icontact, IrootLoader } from '../interfaces';
+import { Icontact, IrootLoader, IsearchRequest } from '../interfaces';
 
 export async function action() {
   const contact = await createContact();
   return redirect(`/contacts/${contact.id}/edit`);
 }
 
-export async function loader() {
-  const contacts = await getContacts();
-  return { contacts };
+export async function loader({ request }: IsearchRequest) {
+  const url = new URL(request.url);
+  const query = url.searchParams.get("q");
+  const contacts = await getContacts(query || undefined);
+  return { contacts, query };
 }
 
 export default function Root() {
-  const { contacts }: IrootLoader = useLoaderData() as IrootLoader;
+  const { contacts, query } = useLoaderData() as IrootLoader;
   const navigation = useNavigation(); 
 
   return (
@@ -36,6 +38,7 @@ export default function Root() {
               placeholder="Search"
               type="search"
               name="q"
+              defaultValue={query}
             />
             <div
               id="search-spinner"
