@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Outlet,
   NavLink,
@@ -25,6 +26,10 @@ export async function loader({ request }: IsearchRequest) {
 export default function Root() {
   const { contacts, query } = useLoaderData() as IrootLoader;
   const navigation = useNavigation(); 
+
+  useEffect(() => {
+    (document.getElementById('q') as HTMLInputElement).value = query as string;
+  }, [query])
 
   return (
     <>
