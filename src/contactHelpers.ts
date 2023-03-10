@@ -47,7 +47,7 @@ export async function getContact(id: string) {
   }
 }
 
-export async function updateContact(id: number, updates: any) {
+export async function updateContact(id: string, updates: any) {
   try {
     await fakeNetwork('');
     const contacts= await localforage.getItem("contacts") as Icontact[];
@@ -62,7 +62,7 @@ export async function updateContact(id: number, updates: any) {
   }
 }
 
-export async function deleteContact(id: number) {
+export async function deleteContact(id: string) {
   try {
     const contacts= await localforage.getItem("contacts") as Icontact[];
     const index = contacts.findIndex(contact => contact.id === id.toString());

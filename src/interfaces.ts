@@ -19,6 +19,11 @@ export interface IgetContactParams {
   params: Params<string>;
 };
 
+export interface IeditParams {
+  params: Params<string>;
+  request: Request;
+};
+
 export interface IcontactLoader {
   contact: Icontact;
 };
