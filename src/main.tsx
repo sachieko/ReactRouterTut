@@ -28,13 +28,14 @@ const router = createBrowserRouter([
         path: "contacts/:contactId",
         element: <Contact />,
         loader: contactLoader,
+        errorElement: <div>Oops! There was an error, likely a missing feature.</div>,
       },
       {
         path: "contacts/:contactId/edit",
         element: <EditContact />,
         loader: contactLoader, // Normally would have its own route, only done for convenience
         action: editAction,
-        errorElement: <div>Oops! There was an error.</div>
+        errorElement: <div>Oops! There was an error.</div>,
       },
       {
         path: "contacts/:contactId/destroy",
