@@ -35,4 +35,9 @@ export interface IcontactLoader {
 
 export interface IsearchRequest {
   request: Request;
-}
+};
+
+export interface IfavoriteParams {
+  request: Request;
+  params: Params<string>;
+};

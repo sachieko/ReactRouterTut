@@ -1,10 +1,17 @@
-import { Form, useLoaderData } from "react-router-dom";
-import { getContact } from "../contactHelpers";
-import { Icontact, IcontactLoader, IgetContactParams } from "../interfaces";
+import { Form, useLoaderData, useFetcher } from "react-router-dom";
+import { getContact, updateContact } from "../contactHelpers";
+import { Icontact, IcontactLoader, IgetContactParams, IfavoriteParams } from "../interfaces";
 
 export async function loader({ params }: IgetContactParams) {
   const contact = await getContact(params.contactId as string);
   return { contact };
+};
+
+export async function action({ request, params }: IfavoriteParams) {
+  let formData = await request.formData();
+  return updateContact(params.contactId as string, {
+    favorite: formData.get("favorite") === "true",
+  });
 };
 
 export default function Contact() {
@@ -74,10 +81,11 @@ interface IFavorite {
 }
 
 function Favorite({ contact }: IFavorite) {
+  const fetcher = useFetcher();
   // yes, this is a `let` for later
   let favorite = contact.favorite;
   return (
-    <Form method="post">
+    <fetcher.Form method="post">
       <button
         name="favorite"
         value={favorite ? "false" : "true"}
@@ -89,6 +97,6 @@ function Favorite({ contact }: IFavorite) {
       >
         {favorite ? "★" : "☆"}
       </button>
-    </Form>
+    </fetcher.Form>
   );
 }

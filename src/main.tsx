@@ -8,7 +8,9 @@ import './index.css'
 import Root, { loader as rootLoader, action as rootAction } from './routes/root';
 import ErrorPage from './ErrorPage';
 import Contact, {
-  loader as contactLoader} from './routes/Contact';
+  loader as contactLoader,
+  action as contactAction,
+} from './routes/Contact';
 import EditContact, {
   action as editAction,
 } from './routes/Edit';
@@ -28,6 +30,7 @@ const router = createBrowserRouter([
         path: "contacts/:contactId",
         element: <Contact />,
         loader: contactLoader,
+        action: contactAction,
         errorElement: <div>Oops! There was an error, likely a missing feature.</div>,
       },
       {
