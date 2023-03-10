@@ -24,6 +24,10 @@ export interface IeditParams {
   request: Request;
 };
 
+export interface IdeleteParams {
+  params: Params<string>;
+};
+
 export interface IcontactLoader {
   contact: Icontact;
 };
