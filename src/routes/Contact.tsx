@@ -4,6 +4,12 @@ import { Icontact, IcontactLoader, IgetContactParams, IfavoriteParams } from "..
 
 export async function loader({ params }: IgetContactParams) {
   const contact = await getContact(params.contactId as string);
+  if (!contact) {
+    throw new Response('', {
+      status: 404,
+      statusText: 'No contact found',
+    });
+  }
   return { contact };
 };
 

@@ -31,7 +31,7 @@ const router = createBrowserRouter([
         element: <Contact />,
         loader: contactLoader,
         action: contactAction,
-        errorElement: <div>Oops! There was an error, likely a missing feature.</div>,
+        errorElement: <ErrorPage />,
       },
       {
         path: "contacts/:contactId/edit",
